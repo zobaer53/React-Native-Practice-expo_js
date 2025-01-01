@@ -3,14 +3,13 @@ import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 export default function App() {
   return (
     <View style={styles.appContainer}>
-      <View style={styles.style1}>
-        <Text>1</Text>
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.input} placeholder="Your goal" />
+        <Button title="Add Goal" />
       </View>
-      <View style={styles.style2}>
-        <Text>2</Text>
-      </View>
-      <View style={styles.style3}>
-        <Text>3</Text>
+
+      <View style={styles.goalsContainer}>
+        <Text> List of goals</Text>
       </View>
     </View>
   );
@@ -18,35 +17,31 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    padding: 50,
+    flex: 1,
+    paddingTop: 60,
+    paddingHorizontal: 16,
+  },
+
+  inputContainer: {
+    flex: 1,
     flexDirection: "row",
-    width: "80%",
-    height: 300,
-    justifyContent: "space-around",
-    alignContent: "center",
-  },
-  style1: {
-    flex: 1,
-    backgroundColor: "red",
-    width: 100,
-    height: 100,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    //backgroundColor: "red",
   },
-  style2: {
-    flex: 1,
-    backgroundColor: "blue",
-    width: 100,
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
+
+  input: {
+    borderColor: "black",
+    borderWidth: 1,
+    padding: 10,
+    //backgroundColor: "white",
+    width: "70%",
   },
-  style3: {
-    flex: 1,
-    backgroundColor: "green",
-    width: 100,
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
+
+  goalsContainer: {
+    flex: 6,
   },
 });
