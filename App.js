@@ -31,17 +31,21 @@ export default function App() {
           placeholder="Your goal"
           onChangeText={goalInputHandler}
         />
-        <Button title="Add Goal" onPress={addGoalHandler} />
+        <View style={styles.buttonAddGoal}>
+          <Button title="Add Goal" onPress={addGoalHandler} />
+        </View>
       </View>
 
       {/* Here we are displaying the goals in the goalsContainer 
       
+      We are using the map() function to loop through the goals array and display each goal in a separate View component.
+      key prop is used to uniquely identify the View component. We can use the index of the goal in the goals array as the key prop value.
       */}
 
       <View style={styles.goalsContainer}>
         {goals.map((goal, index) => (
           <View key={index} style={styles.goal}>
-            <Text>{goal}</Text>
+            <Text style={styles.goalText}>{goal}</Text>
           </View>
         ))}
       </View>
@@ -64,19 +68,35 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     borderBottomWidth: 1,
     borderBottomColor: "black",
-    //backgroundColor: "red",
   },
 
   input: {
     borderColor: "black",
     borderWidth: 1,
     padding: 10,
-    //backgroundColor: "white",
+    borderRadius: 12,
+    fontFamily: "Times New Roman",
     width: "70%",
+  },
+
+  buttonAddGoal: {
+    borderRadius: 12,
+    overflow: "hidden",
   },
 
   goalsContainer: {
     flex: 6,
   },
-  goal: { padding: 10, marginVertical: 10, backgroundColor: "#ccc" },
+  goal: {
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 12,
+    backgroundColor: "#ccc",
+  },
+
+  goalText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    fontFamily: "Times New Roman",
+  },
 });
