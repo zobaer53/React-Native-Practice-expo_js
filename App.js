@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+  FlatList,
+} from "react-native";
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState(""); // here enteredGoalText is the name of the state value and setEnteredGoalText is the function to update the state value
@@ -20,7 +28,10 @@ export default function App() {
 
     // setGoals([...goals, enteredGoalText]); //this is the wrong way to update the state value. Because we are directly modifying the state value.
 
-    setGoals((currentGoals) => [...currentGoals, enteredGoalText]); //here a function is passed to the setGoals() function. This function will receive the previous state value as an argument and we can return the new state value from this function.
+    setGoals((currentGoals) => [
+      ...currentGoals,
+      { text: enteredGoalText, key: Math.random.toString },
+    ]); //here a function is passed to the setGoals() function. This function will receive the previous state value as an argument and we can return the new state value from this function.
   }
 
   return (
@@ -43,11 +54,34 @@ export default function App() {
       */}
 
       <View style={styles.goalsContainer}>
-        {goals.map((goal, index) => (
-          <View key={index} style={styles.goal}>
-            <Text style={styles.goalText}>{goal}</Text>
-          </View>
-        ))}
+        {/* <ScrollView> */}
+        {/* //ScrollView renders all its children components at once. So, it is
+          not suitable for rendering a large number of components. It is
+          suitable for rendering a small number of components. */}
+        {/* //alwaysBounceVertical prop is used to enable the vertical bounce
+            effect when the user scrolls the FlatList component. */}
+        {/* {goals.map((goal, index) => ( */}
+        {/* // now when we are using flatlist we don't need to map manually // we
+        can use the renderItem prop to render the items */}
+        {/*
+
+              <View key={index} style={styles.goalItem}>
+                <Text style={styles.goalText}>{goal}</Text>
+              </View> */}
+        {/* ))} */}
+        {/* </ScrollView> */}
+
+        <FlatList
+          data={goals}
+          renderItem={(item) => {
+            return (
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>{item.item.text}</Text>
+              </View>
+            );
+          }}
+          alwaysBounceVertical={false}
+        />
       </View>
     </View>
   );
@@ -87,9 +121,10 @@ const styles = StyleSheet.create({
   goalsContainer: {
     flex: 6,
   },
-  goal: {
+  goalItem: {
     padding: 10,
     marginVertical: 10,
+    marginBottom: 10,
     borderRadius: 12,
     backgroundColor: "#ccc",
   },
