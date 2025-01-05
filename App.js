@@ -5,9 +5,9 @@ import {
   View,
   Button,
   TextInput,
-  ScrollView,
   FlatList,
 } from "react-native";
+import GoalItem from "./components/GoalItem";
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState(""); // here enteredGoalText is the name of the state value and setEnteredGoalText is the function to update the state value
@@ -32,6 +32,11 @@ export default function App() {
       ...currentGoals,
       { text: enteredGoalText, key: Math.random.toString },
     ]); //here a function is passed to the setGoals() function. This function will receive the previous state value as an argument and we can return the new state value from this function.
+
+    // setGoals((currentGoals) => [
+    //   ...currentGoals,
+    //   { text: enteredGoalText, id: Math.random.toString }, //key will be automatically added by FlatList but not id
+    // ]);
   }
 
   return (
@@ -73,13 +78,10 @@ export default function App() {
 
         <FlatList
           data={goals}
-          renderItem={(item) => {
-            return (
-              <View style={styles.goalItem}>
-                <Text style={styles.goalText}>{item.item.text}</Text>
-              </View>
-            );
+          renderItem={(itemData) => {
+            return <GoalItem text={itemData.item.text} />;
           }}
+          // keyExtractor={(item, index) => item.id}
           alwaysBounceVertical={false}
         />
       </View>
@@ -120,18 +122,5 @@ const styles = StyleSheet.create({
 
   goalsContainer: {
     flex: 6,
-  },
-  goalItem: {
-    padding: 10,
-    marginVertical: 10,
-    marginBottom: 10,
-    borderRadius: 12,
-    backgroundColor: "#ccc",
-  },
-
-  goalText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: "Times New Roman",
   },
 });
